@@ -2,12 +2,14 @@
 
 from setuptools import setup
 
+packages = ['Django=1.6',]
+
 setup(
-    name='YourAppName',
-    version='1.0',
+    name='blog',
+    version='0.1',
     description='OpenShift App',
-    author='Your Name',
+    author='Gareth',
     author_email='example@example.com',
     url='http://www.python.org/sigs/distutils-sig/',
-    install_requires=['Django<=1.4'],
+    install_requires=packages,
 )
