@@ -5,3 +5,8 @@
 *~
 .project
 .pydevproject
+blog.egg-info/*
+build/*
+dist/*
+venv/*
+auth.txt

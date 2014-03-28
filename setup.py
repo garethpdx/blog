@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-packages = ['Django<=1.6',]
+packages = ['Django<=1.4',]
 
 setup(
     name='blog',

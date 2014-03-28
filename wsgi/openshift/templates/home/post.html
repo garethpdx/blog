@@ -1,0 +1,28 @@
+<html>
+<body>
+<h1>
+	Mer blerg
+</h1>
+<h2>
+	{{ post.title|safe }}
+</h2>
+<p>
+	{{ post.date }}
+</p>
+<p>
+	{{ post.content|safe }}
+</p>
+<hr />
+<h2>
+Comments
+</h2>
+<ul>
+{% for comment in all_comments %}
+<li>
+<h4>On {{comment.date}}...
+<p> {{ comment.content }} </p>
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>

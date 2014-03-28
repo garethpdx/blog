@@ -7,6 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'openshift.views.home', name='home'),
+	url(r'^blog/$', 'openshift.views.index'),
+	url(r'^blog/(?P<post_id>\d+)/$', 'openshift.views.post'),
     # url(r'^openshift/', include('openshift.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
