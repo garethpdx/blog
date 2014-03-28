@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-packages = ['Django<=1.4',]
+packages = ['Django<=1.4','BeautifulSoup']
 
 setup(
     name='blog',
