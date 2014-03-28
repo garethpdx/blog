@@ -4,7 +4,7 @@ import bs4
 
 
 def get_articles():
-	with codecs.open(r'C:\Users\gareth\Downloads\blog-03-25-2014.xml','r','utf-8') as f:
+	with codecs.open(r'blog_extract.xml','r','utf-8') as f:
 		r = bs4.BeautifulSoup(f.read())
 		
 	for entry in r.find_all('entry'):
@@ -15,7 +15,7 @@ def get_articles():
 			content, title, published_date, draft = parse_post(entry)
 			if draft:
 				title = 'DRAFT - %s' % title
-			yield {'title': title, 'contents': content, 'published_date': published_date}			
+			yield {'title': title, 'contents': content, 'published_date': published_date, 'hidden': not draft}			
 
 if __name__ == '__main__':			
 	for x in getArticles():
