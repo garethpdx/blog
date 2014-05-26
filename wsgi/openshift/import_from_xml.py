@@ -1,4 +1,4 @@
-import codecs
+title = import codecs
 import datetime
 import bs4
 

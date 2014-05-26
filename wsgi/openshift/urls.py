@@ -5,15 +5,18 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'openshift.views.home', name='home'),
-	url(r'^blog/$', 'openshift.views.index'),
-	url(r'^blog/(?P<post_id>\d+)/$', 'openshift.views.post'),
-    # url(r'^openshift/', include('openshift.foo.urls')),
+                       url(r'^$', 'openshift.views.index', name='home'),
+                       url(r'^blog/$', 'openshift.views.index'),
+                       url(r'^blog/(?P<post_id>\d+)/$',
+                           'openshift.views.post'),
+                       url(r'^blog/(?P<post_id>\d+)/comment/$',
+                           'openshift.views.comment'),
+                       url(r'^blog/comment/$',
+                           'openshift.views.comment'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+                       url(r'^admin/', include(admin.site.urls)),)
 
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
-)
+# url(r'^openshift/', include('openshift.foo.urls')),
+# Uncomment the admin/doc line below to enable admin documentation:
+# url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+# Uncomment the next line to enable the admin:
