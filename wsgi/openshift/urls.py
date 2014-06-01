@@ -1,6 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic import RedirectView
-from django.conf.urls.defaults import handler404
 from django.http import HttpResponse
 
 # Uncomment the next two lines to enable the admin:
@@ -28,8 +27,8 @@ urlpatterns = patterns('',
                        url(r'.*connecting-to-sql-server-from-sikuli.html',
                            RedirectView.as_view(url='/blog/8/')),
                        url(r'^robots.txt$', lambda x: HttpResponse("User-agent: *" +
-                                                                   "\nDisallow: /", mimetype="text/plain")))
-	   
+                                                                   "\nDisallow:",
+                                                                   mimetype="text/plain")))	   
 # url(r'^openshift/', include('openshift.foo.urls')),
 # Uncomment the admin/doc line below to enable admin documentation:
 # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
