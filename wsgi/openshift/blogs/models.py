@@ -7,7 +7,7 @@ class Post(models.Model):
         date = models.DateTimeField('date published')
         content = models.TextField()
         hidden = models.BooleanField(default=True)
-        #blob = models.CharField(max_length=50, null=True)
+        blob = models.CharField(max_length=50, null=True)
 
         def __unicode__(self):
                 return self.title
