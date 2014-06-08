@@ -1,4 +1,4 @@
-#!/bin/bash
+cd#!/bin/bash
 # This deploy hook gets executed after dependencies are resolved and the
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
@@ -19,17 +19,26 @@ fi
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectstatic --noinput'"
 python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
+# Beginning of migration, from https://www.openshift.com/forums/openshift/django-with-south-on-openshift
+
+# This code assumes that migration files are present 
+# in a migrations folder in the data directory
+
+# First, copy migration data from the persistent storage to the codebase directory
+# cp -r source destination -> recursively copy files from source to destination
 echo "copying migrations to  app-root storage"
-echo "mv "$OPENSHIFT_REPO_DIR"wsgi/openshift/blogs/migrations $OPENSHIFT_DATA_DIR"
+# (LIES!) echo "mv "$OPENSHIFT_REPO_DIR"wsgi/openshift/blogs/migrations $OPENSHIFT_DATA_DIR"
 cp -r "${OPENSHIFT_DATA_DIR}migrations" ${OPENSHIFT_REPO_DIR}wsgi/openshift/blogs
  
+# Second, create a migration inside the codebase
 # echo "generating migration files 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py schemamigration blogs --auto'"
 python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py schemamigration blogs --auto
- 
+
+# Third, perform the migration created in step 2
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py migrate blogs'"
 python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py migrate blogs
  
- 
+# Finally, copy the new migration file to persistent storage
 echo "saving migrations to persistent storage"
 echo "cp -r "$OPENSHIFT_REPO_DIR"wsgi/openshift/blogs/migrations $OPENSHIFT_DATA_DIR"
 cp -r "${OPENSHIFT_REPO_DIR}wsgi/openshift/blogs/migrations" ${OPENSHIFT_DATA_DIR}
