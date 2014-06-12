@@ -34,7 +34,7 @@ def index(request):
 def redirect_old_url(request, post_id):
     post = Post.objects.get(pk=post_id)
     return HttpResponseRedirect('/{0.year}/{0.month}/{1}/'.format(post.date,
-                                                                 post.blob))
+                                                                  post.blob))
 
 
 def post(request, post_id=None, post_name=None):
@@ -46,6 +46,8 @@ def post(request, post_id=None, post_name=None):
                 post = Post.objects.filter(blob=post_name)[0]
             except IndexError:
                 raise Post.DoesNotExist
+        if post.hidden:
+            raise Http404
     except Post.DoesNotExist:
         raise Http404
     all_comments = Comment.objects.filter(parent_id__exact=post.pk,
