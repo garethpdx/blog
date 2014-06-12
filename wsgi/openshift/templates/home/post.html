@@ -75,7 +75,7 @@ h1 {
 		<li class="contentbox">
 			<h2>Comment:</h2>
 			<a name="comment"></a>
-			<form method="post" action="/blog/{{post.id}}/comment/">
+			<form method="post" action="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/comment/">
 				{{ comment_form.as_p }}
 				{% csrf_token %}
 				<input type="submit" />

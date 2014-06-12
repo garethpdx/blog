@@ -53,13 +53,13 @@ Blogging Baselin.es
 		{% for post in latest_blog_posts %}
 			{% ifequal post.hidden 0 %}
 				<li class="post">
-					<h2><a href="/blog/{{ post.id }}/"> {{ post.title|safe }}</a></h2>
+					<h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
 					<span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
 					<p class="content">
 						{{ post.content|safe }}
 					</p>
 					<p>
-					  <i><a href="/blog/{{ post.id }}/#comment">
+					  <i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
 							   Comment
 							   </a></i>
 					  </p>
@@ -88,7 +88,7 @@ Blogging Baselin.es
 		{% for post in latest_blog_posts %}
 			{% ifequal post.hidden 0 %}
 			<li>
-				<a href="/blog/{{ post.id }}/">
+				<a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/">
 					{{ post.title|safe }}
 				</a>
 			</li>
@@ -97,7 +97,7 @@ Blogging Baselin.es
 		{% for post in older_blog_posts %}
 			{% ifequal post.hidden 0 %}
 				<li>
-				<a href="/blog/{{ post.id }}/"> {{ post.title|safe }}</a>
+				<a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/"> {{ post.title|safe }}</a>
 				</li>
 			{% endifequal %}
 		{% endfor %}

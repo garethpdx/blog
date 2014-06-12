@@ -31,13 +31,19 @@ def index(request):
         return HttpResponse(t.render(c))
 
 
+def redirect_old_url(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    return HttpResponseRedirect('/{0.year}/{0.month}/{1}/'.format(post.date,
+                                                                 post.blob))
+
+
 def post(request, post_id=None, post_name=None):
     try:
         if post_id:
             post = Post.objects.get(pk=post_id)
         if post_name:
             try:
-                post = Post.objects.filter(title__istartswith=post_name)[0]
+                post = Post.objects.filter(blob=post_name)[0]
             except IndexError:
                 raise Post.DoesNotExist
     except Post.DoesNotExist:
@@ -52,15 +58,18 @@ def post(request, post_id=None, post_name=None):
                               context_instance=RequestContext(request))
 
 
-def comment(request, post_id=None):
+def comment(request, post_name=None):
         if request.method == 'POST':
                 f = CommentForm(request.POST)
                 if f.is_valid():
-                        new_comment = f.save(commit=False)
-                        new_comment.parent_id = int(post_id)
-                        new_comment.save()
-                return HttpResponseRedirect('/blog/%d/' %
-                                            new_comment.parent_id)
+                    new_comment = f.save(commit=False)
+                    parent = Post.objects.filter(blob=post_name)[0]
+                    new_comment.parent_id = parent.id
+                    new_comment.save()
+                #else:
+                #    print f
+                return HttpResponseRedirect('/{0.year}/{0.month}/{1}/'.format(parent.date, 
+                                                                              parent.blob))
         form = CommentForm()
         return render_to_response('home/comment.html',
                                   {'form': form},
