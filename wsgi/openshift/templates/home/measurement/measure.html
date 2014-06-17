@@ -1,0 +1,42 @@
+<html>
+<head>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+  set_default_type();
+  
+});
+   
+  default_type_name = '{{ default_category.name }}';
+
+  function set_default_type(){
+     options = retrieve_measurement_types();
+     for(i=0;i<options.length;i++){
+       if(options[i].label == default_type_name){
+		 set_measurement_type(i);
+     }
+  }
+}
+
+  function set_measurement_type(t){
+     document.getElementById('id_type').value=t;
+  }
+
+  function retrieve_measurement_types(){
+     return document.getElementById('id_type').options;
+     
+}
+</script>  
+</head>
+<body>
+<p>Your default measurement category is {{ default_category.name }}. The mimimum value 
+for this category is {{ default_category.min_value }}, which means approximately <b>{{ default_category.min_value_desc }}</b>, the maximum value is {{ default_category.max_value }} which means <b>{{ default_category.max_value_desc }}</b>.
+<form name="measure" method="post" action="/measurement/{{measure_user.username}}/">
+{{ form }}
+{% csrf_token %}
+<input type="submit">
+</form>
+<p>
+<a href='/admin/measurement/category/'>Add a category</a>.
+</p>
+</body>
+</html>

@@ -28,6 +28,9 @@ urlpatterns = patterns('',
                            'openshift.views.comment'),
                        url(r'^blog/comment/$',
                            'openshift.views.comment'),
+                       url(r'^measurement/(?P<username>[a-z]{1,10})/$',
+                       #  url(r'^measurement/gareth/$',
+                           'openshift.views.measure')
                        )
 # url(r'^openshift/', include('openshift.foo.urls')),
 # Uncomment the admin/doc line below to enable admin documentation:
