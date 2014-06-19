@@ -5,7 +5,7 @@ from django.template import RequestContext
 from blogs.models import Post
 from blogs.models import Comment
 from blogs.models import CommentForm
-from measurement.models import MeasurementForm, User, Measurement
+from measurement.models import MeasurementForm, User, Measurement, Category
 
 
 def home(request):
@@ -85,10 +85,7 @@ def measure(request, username):
             new_measurement.save()
     form = MeasurementForm()
     user = User.objects.filter(username=username)[0]
-    measurement = retrieve_last_measurement_for_user(user)
-    if not measurement:
-        measurement = Measurement.objects.all()[0]
-    default_category = measurement.type
+    default_category = get_default_category(user)
     return render_to_response('home/measurement/measure.html',
                               {'form': form.as_p(),
                                'measure_user': user,
@@ -97,9 +94,19 @@ def measure(request, username):
 
 
 def retrieve_last_measurement_for_user(user):
-    last_measurement = None
+    return Measurement.objects.filter(user=user)[0]
+
+
+def retrieve_any_global_category():
+    return Category.objects.all()[0]
+
+
+def get_default_category(user):
+    category = None
     try:
-        last_measurement = Measurement.objects.filter(user=user)[0]
+        category = retrieve_last_measurement_for_user(user).type
     except IndexError:
         pass
-    return last_measurement
+    if not category:
+        category = retrieve_any_global_category()
+    return category
