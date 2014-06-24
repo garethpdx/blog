@@ -26,17 +26,44 @@
      
 }
 </script>  
+    <link rel="stylesheet" href="/static/css/foundation.css" />
+    <script src="/static/js/vendor/modernizr.js"></script>
 </head>
+
 <body>
-<p>Your default measurement category is {{ default_category.name }}. The mimimum value 
-for this category is {{ default_category.min_value }}, which means approximately <b>{{ default_category.min_value_desc }}</b>, the maximum value is {{ default_category.max_value }} which means <b>{{ default_category.max_value_desc }}</b>.
-<form name="measure" method="post" action="/measurement/{{measure_user.username}}/">
-{{ form }}
-{% csrf_token %}
-<input type="submit">
-</form>
-<p>
-<a href='/admin/measurement/category/'>Add a category</a>.
-</p>
+<div class="row">
+  <div class="small-6 large-10 columns">
+    <h1>Add a Measurement</h1>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="small-6 large-10 columns">
+     <p>Your default measurement category is {{ default_category.name }}. The mimimum value 
+     for this category is {{ default_category.min_value }}, which means approximately <b>{{ default_category.min_value_desc }}</b>, the maximum value is {{ default_category.max_value }} which means <b>{{ default_category.max_value_desc }}</b>.
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 large-10 columns">
+    <form name="measure" method="post" action="/measurement/{{measure_user.username}}/">
+    {{ form }}
+    {% csrf_token %}
+    <input type="submit">
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 large-10 columns">
+     <p>
+     <a href='/admin/measurement/category/'>Add a category</a>.
+     </p>
+  </div>
+</div>
+
+  <script src="/static/js/vendor/jquery.js"></script>
+  <script src="/static/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
 </body>
 </html>
