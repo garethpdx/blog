@@ -19,7 +19,7 @@ urlpatterns = patterns('',
                        url(r'^(\d{4})/(\d{1,2})/(?P<post_name>[a-zA-Z0-9-_]{1,40})/comment/$', 'openshift.views.comment'),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^robots.txt$',
-                           lambda x: HttpResponse("User-agent: *\nDisallow: /",
+                           lambda x: HttpResponse("User-agent: *\nDisallow: ",
                                                   mimetype="text/plain")),
                        # The old url format
                        url(r'^blog/(?P<post_id>\d+)/$',
