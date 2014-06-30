@@ -13,7 +13,7 @@ def home(request):
 
 
 def go404(request):
-        latest_blog_posts = Post.objects.filter(hidden=0)
+        latest_blog_posts = blog_posts_newest_to_oldest()
         t = loader.get_template('home/404.html')
         c = Context({
             'latest_blog_posts': latest_blog_posts[:10],
@@ -24,12 +24,16 @@ def go404(request):
 
 
 def index(request):
-        latest_blog_posts = Post.objects.filter(hidden=0)
+        latest_blog_posts = blog_posts_newest_to_oldest()
         t = loader.get_template('home/index.html')
         c = Context({
             'latest_blog_posts': latest_blog_posts[:10],
             'older_blog_posts': latest_blog_posts[10:]})
         return HttpResponse(t.render(c))
+
+
+def blog_posts_newest_to_oldest():
+    return Post.objects.filter(hidden=0).order_by('-date')
 
 
 def redirect_old_url(request, post_id):
