@@ -38,11 +38,19 @@ def blog_posts_newest_to_oldest():
 
 def redirect_old_url(request, post_id):
     post = Post.objects.get(pk=post_id)
-    return HttpResponseRedirect('/{0.year}/{0.month}/{1}/'.format(post.date,
-                                                                  post.blob))
+    return HttpResponseRedirect('/{0.year}/{1}/{2}/'.format(post.date,
+                                                            str(post.date.month).zfill(2),
+                                                            post.blob))
+
+def redirect_non_padded_url(request, post_name, post_buffered_month, post_year):
+    try:
+        post = Post.objects.filter(blob=post_name)[0]
+    except IndexError:
+        raise Post.DoesNotExist
+    return HttpResponseRedirect('/{0}/{1}/{2}/'.format(post_year, post_buffered_month.zfill(2), post.blob))
 
 
-def post(request, post_id=None, post_name=None):
+def post(request, post_id=None, post_name=None, post_buffered_month=None, post_year=None):
     try:
         if post_id:
             post = Post.objects.get(pk=post_id)
