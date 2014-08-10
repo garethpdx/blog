@@ -1,3 +1,4 @@
+{% load markup %}
 <html>
 <head>
 <style>
@@ -57,7 +58,7 @@ Blogging Baselin.es
 					<h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
 					<span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
 					<p class="content">
-						{{ post.content|safe }}
+						{{ post.content|safe|markdown }}
 					</p>
 					<p>
 					  <i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
