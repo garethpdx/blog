@@ -73,7 +73,7 @@ def post(request, post_id=None, post_name=None, post_buffered_month=None, post_y
                               context_instance=RequestContext(request))
 
 
-def comment(request, post_name=None):
+def comment(request, post_id=None, post_name=None, post_buffered_month=None, post_year=None):
         if request.method == 'POST':
                 f = CommentForm(request.POST)
                 if f.is_valid():
