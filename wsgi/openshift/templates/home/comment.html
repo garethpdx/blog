@@ -1,7 +1,14 @@
-<body>
+<html>
+<body><h1>Thank you!</h1>
+<p>
+Thank you for your comment. All comments are reviewed by an administrator prior to being posted.<br />
+<br />
+Please submit another comment below or use your browser's back button to return to the article.
+</p>
 	<form method="post" action="/blog/comment/"
 		{{ form.as_p }}
 		{% csrf_token %}
 		<input type="submit">
 	</form>
 </body>
+</html>
