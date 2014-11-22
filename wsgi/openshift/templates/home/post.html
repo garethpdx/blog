@@ -34,6 +34,26 @@ h1 {
   list-style-type:none
 }
 
+#comment-form label, input, textarea {
+  float:left;
+  clear:both;
+  padding: 4px 0 4px 0;
+}
+
+#comment-form label{
+  background-color: #B2FFE4;
+  padding-left: 10px;
+  width:33%;
+  font-family: Tahoma;
+  text-transform: capitalize
+
+}
+
+#comment-form input, textarea {
+  margin: 5px;
+  width:100%
+}
+
 </style>
 <title>
 {{ post.title }}
@@ -60,22 +80,32 @@ h1 {
 		</li>
 		<li class="contentbox">
 		<h2>
-		Comments:
+		  {% if all_comments %}
+		  Comments:
+		  {% else %}
+		  No comments yet
+		  {% endif %}
 		</h2>
 		</li>
 		<li class="contentbox">
-		<ul id="comments">
-		{% for comment in all_comments %}
-			<li>
-			<h4>On {{comment.date}}...
+		  <ul id="comments">
+		    {% for comment in all_comments %}
+		    <li>
+		      <h4>On {{comment.date}}...
 			<p> {{ comment.content }} </p>
-			</li>
-		{% endfor %}
-		</ul>
-			<hr class="end" />
+		    </li>
+		    {% endfor %}
+		  </ul>
+		  <hr class="end" />
 		</li>
-		<li class="contentbox">
+		<li class="contentbox" id="comment-form">
 			<h2>Comment:</h2>
+			<p>
+			  <i>
+			    Comments will be reviewed before posting.
+			    Email addresses are not published.
+			  </i>
+			</p>
 			<a name="comment"></a>
 			<form method="post" action="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/comment/">
 				{{ comment_form.as_p }}

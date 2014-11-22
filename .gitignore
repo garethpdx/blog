@@ -1,3 +1,7 @@
+Scripts/*
+Lib/*
+Include/*
+*.h
 *.py[co]
 *.sw[po]
 *.bak

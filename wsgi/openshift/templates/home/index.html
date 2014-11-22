@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-size:16px;
 }
 h1 {
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #4F3411;
 	padding-bottom:20px;
 }
 .left {
@@ -23,21 +23,35 @@ h1 {
 .wide {
   width:600px;
 }
+
 .post {
-  padding:0 0 10px;
+  padding:0 10px 10px;
   list-style-type:none
 }
+
 .post hr.end{
 	width:60%;
+        color: #4F3411;
+}
+
+.post pre {
+  overflow-x: auto;
+  width: inherit;
 }
 
 #archives {
-	border-left: 1px solid gray ;
+	border-left: 1px solid #4F3411;
 	padding-left:20px;
 }
+
+#archives h3 { background-color: #B2FFE4
+}
+
 #archives ul{
 	padding-left:20px;
 }
+
+
 </style>
 <title>
 Blogging Baselin.es
@@ -104,6 +118,13 @@ Blogging Baselin.es
 			{% endifequal %}
 		{% endfor %}
 	</ul>
+
+	<h3>
+	  Recent Tweets
+	</h3>
+	<a class="twitter-timeline"  href="https://twitter.com/garethpdx" data-widget-id="534554833978531840" width="220" data-chrome="noheader">Tweets by @garethpdx</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          
 </div>
 {% endif %}
 <script>
