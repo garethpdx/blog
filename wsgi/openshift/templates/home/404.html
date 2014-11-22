@@ -1,39 +1,8 @@
+{% load markup %}
+{% load staticfiles %}
 <html>
 <head>
-<style>
-
-h1, h2, h3, h4, h5, h6 {
-	font-family:Tahoma;
-	font-size:16px;
-}
-h1 {
-	border-bottom: 1px solid gray;
-	padding-bottom:20px;
-}
-.left {
-  float:left; 
-}
-.narrow {
-  width:300px;
-}
-.right {
-  float:right;
-}
-.wide {
-  width:600px;
-}
-.post {
-  padding:0 0 10px;
-  list-style-type:none
-}
-.post hr.end{
-	width:60%;
-}
-
-.contentbox{
-  list-style-type:none
-}
-</style>
+<link href="{% static "css\baselines.css" %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <h1>

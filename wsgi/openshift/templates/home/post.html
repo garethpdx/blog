@@ -1,60 +1,10 @@
 {% load markup %}
+{% load staticfiles %}
 <html>
 <head>
-<style>
 
-h1, h2, h3, h4, h5, h6 {
-	font-family:Tahoma;
-	font-size:16px;
-}
-h1 {
-	border-bottom: 1px solid gray;
-	padding-bottom:20px;
-}
-.left {
-  float:left; 
-}
-.narrow {
-  width:300px;
-}
-.right {
-  float:right;
-}
-.wide {
-  width:600px;
-}
-.post {
-  padding:0 0 10px;
-  list-style-type:none
-}
-.post hr.end{
-	width:60%;
-}
-.contentbox{
-  list-style-type:none
-}
+<link href="{% static "css\baselines.css" %}" rel="stylesheet" type="text/css" />
 
-#comment-form label, input, textarea {
-  float:left;
-  clear:both;
-  padding: 4px 0 4px 0;
-}
-
-#comment-form label{
-  background-color: #B2FFE4;
-  padding-left: 10px;
-  width:33%;
-  font-family: Tahoma;
-  text-transform: capitalize
-
-}
-
-#comment-form input, textarea {
-  margin: 5px;
-  width:100%
-}
-
-</style>
 <title>
 {{ post.title }}
 </title>

@@ -1,58 +1,10 @@
 {% load markup %}
+{% load staticfiles %}
 <html>
 <head>
-<style>
 
-h1, h2, h3, h4, h5, h6 {
-	font-family:Tahoma;
-	font-size:16px;
-}
-h1 {
-	border-bottom: 1px solid #4F3411;
-	padding-bottom:20px;
-}
-.left {
-  float:left; 
-}
-.narrow {
-  width:300px;
-}
-.right {
-  float:right;
-}
-.wide {
-  width:600px;
-}
+<link type="text/css" rel="stylesheet" href="{% static "css\baselines.css" %}" />
 
-.post {
-  padding:0 10px 10px;
-  list-style-type:none
-}
-
-.post hr.end{
-	width:60%;
-        color: #4F3411;
-}
-
-.post pre {
-  overflow-x: auto;
-  width: inherit;
-}
-
-#archives {
-	border-left: 1px solid #4F3411;
-	padding-left:20px;
-}
-
-#archives h3 { background-color: #B2FFE4
-}
-
-#archives ul{
-	padding-left:20px;
-}
-
-
-</style>
 <title>
 Blogging Baselin.es
 </title>
@@ -65,66 +17,65 @@ Blogging Baselin.es
 {% if latest_blog_posts %}
 
 <div class="left wide">
-	<ul>
-		{% for post in latest_blog_posts %}
-			{% ifequal post.hidden 0 %}
-				<li class="post">
-					<h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
-					<span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
-					<p class="content">
-						{{ post.content|safe|markdown }}
-					</p>
-					<p>
-					  <i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
-							   Comment
-							   </a></i>
-					  </p>
-					  <hr class="end" />
-				</li>
-			{% endifequal %}
-		{% endfor %}
-	</ul>
-<!--
-	Older blog posts
-	<ul>		
-		{% for post in older_blog_posts %}
-			{% ifequal post.hidden 0 %}
-				<li>
-				<h2>
-				  <a href="/blog/{{ post.id }}/"> {{ post.title|safe }}</a></h2>
-				</li>
-			{% endifequal %}
-		{% endfor %}
-	</ul>-->
-
+  <ul>
+    {% for post in latest_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li class="post">
+      <h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
+      <span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
+      <p class="content">
+	{{ post.content|safe|markdown }}
+      </p>
+      <p>
+	<i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
+	    Comment
+	</a></i>
+      </p>
+      <hr class="end" />
+    </li>
+    {% endifequal %}
+    {% endfor %}
+  </ul>
+  <!--
+      Older blog posts
+      <ul>		
+	{% for post in older_blog_posts %}
+	{% ifequal post.hidden 0 %}
+	<li>
+	  <h2>
+	    <a href="/blog/{{ post.id }}/"> {{ post.title|safe }}</a></h2>
+	</li>
+	{% endifequal %}
+	{% endfor %}
+      </ul>-->
 </div>
 <div class="left" id="archives">
-	<h3>Archives</h3>
-	<ul>
-		{% for post in latest_blog_posts %}
-			{% ifequal post.hidden 0 %}
-			<li>
-				<a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/">
-					{{ post.title|safe }}
-				</a>
-			</li>
-			{% endifequal %}
-		{% endfor %}
-		{% for post in older_blog_posts %}
-			{% ifequal post.hidden 0 %}
-				<li>
-				<a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a>
-				</li>
-			{% endifequal %}
-		{% endfor %}
-	</ul>
-
-	<h3>
-	  Recent Tweets
-	</h3>
-	<a class="twitter-timeline"  href="https://twitter.com/garethpdx" data-widget-id="534554833978531840" width="220" data-chrome="noheader">Tweets by @garethpdx</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-          
+  <h3>Archives</h3>
+  <ul>
+    {% for post in latest_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li>
+      <a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/">
+	{{ post.title|safe }}
+      </a>
+    </li>
+    {% endifequal %}
+    {% endfor %}
+    {% for post in older_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li>
+      <a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a>
+    </li>
+    {% endifequal %}
+    {% endfor %}
+  </ul>
+  
+  <h3>
+    Recent Tweets
+  </h3>
+  <a class="twitter-timeline"  href="https://twitter.com/garethpdx" data-widget-id="534554833978531840" data-chrome="noheader">Tweets by @garethpdx</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  </script>        
 </div>
 {% endif %}
 <script>
@@ -135,7 +86,6 @@ Blogging Baselin.es
 
   ga('create', 'UA-38614627-4', 'baselin.es');
   ga('send', 'pageview');
-
 </script>
 </body>
 </html>
