@@ -1,16 +1,14 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.core.urlresolvers import resolve
 
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
+from django.utils import unittest
+#  from django.test import TestCase
+from openshift.blogs.views import index
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class HomePageTest(unittest.TestCase):
+    def test_resolution_of_homepage(self):
+        found = resolve('/')
+        self.assertEqual(found.func, index)
+
+
+
