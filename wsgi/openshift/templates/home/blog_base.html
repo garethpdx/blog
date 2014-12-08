@@ -1,0 +1,79 @@
+{% load markup %}
+{% load staticfiles %}
+<html>
+<head>
+
+<link type="text/css" rel="stylesheet" href="{% static "css\baselines.css" %}" />
+<style>
+ .footer {width:100%; background-color: #FFF9E7; clear:both}
+ .footer p {line-height: 30px; margin: 10px}
+ .footer p a {color: #E85F0C }
+</style>
+<title>{% block title %}
+Blogging Baselin.es{% endblock %}
+</title>
+<meta name="description" content="{% block metacontent %}Notes, workarounds, and ramblings from a technologist working with SQL Server and Python.{% endblock %}">
+</head>
+<body>
+<h1>
+	<a href="/">Blogging Baselin.es</a>
+</h1>
+<div class="left wide">
+  <ul>
+    {% block content %}
+    {% for post in latest_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li class="post">
+      <h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
+      <span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
+      <p class="content">
+	{{ post.content|safe|markdown }}
+      </p>
+      <p>
+	<i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
+	    Comment
+	</a></i>
+      </p>
+      <hr class="end" />
+    </li>
+    {% endifequal %}
+    {% endfor %}
+    {% endblock %}
+  </ul>
+</div>
+<div class="left" id="archives">
+  <h3>Archives</h3>
+  <ul>
+    {% for post in latest_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li>
+      <a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/">
+	{{ post.title|safe }}
+      </a>
+    </li>
+    {% endifequal %}
+    {% endfor %}
+    {% for post in older_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li>
+      <a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a>
+    </li>
+    {% endifequal %}
+    {% endfor %}
+  </ul>
+  
+  <h3>
+    Recent Tweets
+  </h3>
+  <a class="twitter-timeline"  href="https://twitter.com/garethpdx" data-widget-id="534554833978531840" data-chrome="noheader">Tweets by @garethpdx</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  </script>        
+</div>
+<div class="footer">
+<p>
+  Made with <a href="http://djangoproject.com">Django</a>, hosted on <a href='http://Openshift.com'>Openshift</a>, and available on <a href="http://github.com/garethpdx/blog/">Github</a>.
+</p>
+</div>
+{% include "home/analytics.html" %}
+</body>
+</html>

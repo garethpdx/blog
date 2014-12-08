@@ -1,79 +1,62 @@
+{% extends "home/blog_base.html" %}
+
 {% load markup %}
 {% load staticfiles %}
-<html>
-<head>
 
-<link href="{% static "css\baselines.css" %}" rel="stylesheet" type="text/css" />
+{% block title %}{{ block.super }} - {{ post.title}} {% endblock %}
+{% block metacontent %}{{post.content|slice:":150"}}{% endblock %}
+{% block content %}
+<li class="post contentbox">
+  <h2>
+    {{ post.title|safe }}
+  </h2>
+  <p>
+    {{ post.date }}
+  </p>
+  <p>
+    {{ post.content|safe|markdown }}
+  </p>
+  <hr class="end" />
+</li>
+<li class="contentbox">
+  <h2>
+    {% if all_comments %}
+    Comments:
+    {% else %}
+    No comments yet
+    {% endif %}
+  </h2>
+</li>
+{% if all_comments %}
+<li class="contentbox">
+  <ul id="comments">
+    {% for comment in all_comments %}
+    <li>
+      <h4>On {{comment.date}}...</h4>
+      <p> {{ comment.content }} </p>
+    </li>
+    {% endfor %}
+  </ul>
+</li>
+{% endif %}
+<li class="contentbox">
+  <hr class="end" />
+</li>
+<li class="contentbox" id="comment-form">
+  <h2>Add a Comment:</h2>
+  <p>
+    <i>
+      Comments will be reviewed before posting.
+      Email addresses are not published.
+    </i>
+  </p>
+  <a name="comment"></a>
+  <form method="post" action="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/comment/">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" />
+  </form>
+</li>
+{% endblock %}
 
-<title>
-{{ post.title }}
-</title>
-<meta name="description" content="{{post.content|slice:":150"}}" />
-</head>
-<body>
-<h1>
-	<a href="/blog/">Blogging Baselin.es</a>
-</h1>
-<div class="left wide">
-	<ul>
-		<li class="post contentbox">
-			<h2>
-				{{ post.title|safe }}
-			</h2>
-			<p>
-				{{ post.date }}
-			</p>
-			<p>
-				{{ post.content|safe|markdown }}
-			</p>
-			<hr class="end" />
-		</li>
-		<li class="contentbox">
-		<h2>
-		  {% if all_comments %}
-		  Comments:
-		  {% else %}
-		  No comments yet
-		  {% endif %}
-		</h2>
-		</li>
-		<li class="contentbox">
-		  <ul id="comments">
-		    {% for comment in all_comments %}
-		    <li>
-		      <h4>On {{comment.date}}...
-			<p> {{ comment.content }} </p>
-		    </li>
-		    {% endfor %}
-		  </ul>
-		  <hr class="end" />
-		</li>
-		<li class="contentbox" id="comment-form">
-			<h2>Comment:</h2>
-			<p>
-			  <i>
-			    Comments will be reviewed before posting.
-			    Email addresses are not published.
-			  </i>
-			</p>
-			<a name="comment"></a>
-			<form method="post" action="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/comment/">
-				{{ comment_form.as_p }}
-				{% csrf_token %}
-				<input type="submit" />
-			</form>
-		</li>
-	</ul>
-</div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-38614627-4', 'baselin.es');
-  ga('send', 'pageview');
-
-</script>
-</body>
-</html>
