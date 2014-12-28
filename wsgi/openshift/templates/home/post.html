@@ -7,6 +7,11 @@
 {% block metacontent %}{{post.content|slice:":150"}}{% endblock %}
 {% block content %}
 <li class="post contentbox">
+  {% if comment_redirect %}
+  <h3 class="notification">
+      &nbsp;Thank you for your comment
+  </h3>
+  {% endif %}
   <h2>
     {{ post.title|safe }}
   </h2>
@@ -43,7 +48,9 @@
   <hr class="end" />
 </li>
 <li class="contentbox" id="comment-form">
-  <h2>Add a Comment:</h2>
+  <h2>
+       Add a Comment:
+  </h2>
   <p>
     <i>
       Comments will be reviewed before posting.

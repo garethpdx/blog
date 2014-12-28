@@ -7,6 +7,9 @@ h1 {
 	border-bottom: 1px solid #4F3411;
 	padding-bottom:20px;
 }
+
+h3.notification {background-color: lightgrey; color:darkgreen; font-style:italic; border:1px solid black}
+
 .left {
   float:left; 
 }
@@ -54,6 +57,16 @@ h1 {
   width:100%
 }
 
+ul .errorlist {
+    float: left
+}
+
+li .errorlist {
+    color:red;
+    font-weight:bold;
+    list-style-type: none;
+    padding: 10px;
+}
 
 .post pre {
   overflow-x: auto;

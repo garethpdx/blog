@@ -28,4 +28,4 @@ class Comment(models.Model):
 class CommentForm(ModelForm):
         class Meta:
                 model = Comment
-                exclude = ('parent', 'date', 'hidden')
+                exclude = ('date', 'hidden')
