@@ -6,8 +6,10 @@ from blogs.models import Post
 from blogs.models import Comment
 from blogs.models import CommentForm
 from django.forms import HiddenInput
+from django.conf import settings
 
 def home(request):
+    print settings.BLOG_CONFIGURATION['site']['name']
     return render_to_response('home/home.html')
 
 

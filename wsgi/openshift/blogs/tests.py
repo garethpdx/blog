@@ -8,6 +8,7 @@ from openshift.views import go404
 from openshift.views import index
 
 from openshift.blogs.models import Post
+from django.test.utils import override_settings
 
 class SuccessfulRoutingTest(TestCase):
     def setUp(self):
@@ -57,18 +58,29 @@ class RequestTest(TestCase):
     
 
 class HomePageRequestTest(RequestTest):
+
     def setUp(self):
         self.request = HttpRequest()
         self.urls = ['/']
+
+    def test_custom_configuration(self):
+        configs = [{'site': {'name': 'bobs red mill'}},
+                   {'site': {'name': 'Blogging Baselin.es'}}]
+        for test_config in configs:
+            with self.settings(BLOG_CONFIGURATION=test_config):
+                for url in self.urls:
+                    found = resolve(url)
+                    resp = self.get_response(found.func)
+                    self.assertIn(test_config['site']['name'], resp.content)
 
 
 class BlogPostRequestTest(RequestTest):
     @staticmethod
     def create_example_post():
         post = Post(content='test content',
-                         date=datetime.datetime(2014, 10, 07),
-                         title='test post title', blob='test_post',
-                         hidden=False)
+                    date=datetime.datetime(2014, 10, 07),
+                    title='test post title', blob='test_post',
+                    hidden=False)
         post.save()
         return post
     

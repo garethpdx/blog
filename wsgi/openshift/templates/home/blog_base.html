@@ -10,13 +10,13 @@
  .footer p a {color: #E85F0C }
 </style>
 <title>{% block title %}
-Blogging Baselin.es{% endblock %}
+{{ blog_config.site.name }}{% endblock %}
 </title>
-<meta name="description" content="{% block metacontent %}Notes, workarounds, and ramblings from a technologist working with SQL Server and Python.{% endblock %}">
+<meta name="description" content="{% block metacontent %}{{ blog_config.site.description }}{% endblock %}">
 </head>
 <body>
 <h1>
-	<a href="/">Blogging Baselin.es</a>
+	<a href="/">{{ blog_config.site.name }}</a>
 </h1>
 <div class="left wide">
   <ul>
@@ -65,7 +65,7 @@ Blogging Baselin.es{% endblock %}
   <h3>
     Recent Tweets
   </h3>
-  <a class="twitter-timeline"  href="https://twitter.com/garethpdx" data-widget-id="534554833978531840" data-chrome="noheader">Tweets by @garethpdx</a>
+  <a class="twitter-timeline"  href="https://twitter.com/{{ blog_config.twitter.username }}" data-widget-id="{{ blog_config.twitter.widget_id}}" data-chrome="noheader">Tweets by @{{ blog_config.twitter.username }}</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   </script>        
 </div>

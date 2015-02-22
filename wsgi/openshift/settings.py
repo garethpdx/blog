@@ -184,3 +184,16 @@ LOGGING = {
         },
     }
 }
+
+BLOG_CONFIGURATION = {
+    'site': {
+        'name': 'Blogging Baselin.es',
+        'description': ('Notes, workarounds, and ramblings from a tech '
+                        + 'nologist working with SQL Server and Python.')},
+    'twitter': {
+        'username': 'garethpdx',
+        'widget_id': '534554833978531840'},
+    'analytics': {
+        'id': 'UA-38614627-4',
+        'domain': 'baselin.es'}
+}
