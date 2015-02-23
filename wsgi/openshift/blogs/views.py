@@ -47,7 +47,8 @@ def post(request, post_id=None, post_name=None, post_buffered_month=None, post_y
     c = Context({'post': post,
                  'all_comments': all_comments,
                  'comment_form': comment_form,
-                 'comment_redirect': comment_redirect})
+                 'comment_redirect': comment_redirect,
+                 'blog_config': settings.BLOG_CONFIGURATION})
     return render_to_response('home/post.html',
                               c,
                               context_instance=RequestContext(request))
