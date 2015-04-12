@@ -1,0 +1,36 @@
+{% extends "home/blog_base.html" %}
+{% load markup %}
+{% load staticfiles %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+    <li class="contentbox">
+      <h2>
+	{% if form.is_bound %}
+	  {% if not form.is_valid %}
+	      Whoops!
+	  {% endif %}
+	{% endif %}
+      </h2>
+      <p>
+	{% if form.is_bound %}
+	  {% if not form.is_valid %}
+             An error occured while processing your comment. Please see the errors below.
+	  {% endif %}
+	{% endif %}        
+	<br />
+      </p>
+    </li>
+    {% if form.is_bound %}
+       {% if not form.is_valid %}
+<li class="contentbox" id="comment-form">
+  <form method="post" action="/blog/comment/">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit">
+  </form>
+</li>
+     {% endif %}
+   {% endif %}
+{% endblock %}

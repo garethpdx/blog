@@ -1,0 +1,69 @@
+{% extends "home/blog_base.html" %}
+
+{% load markup %}
+{% load staticfiles %}
+
+{% block title %}{{ block.super }} - {{ post.title}} {% endblock %}
+{% block metacontent %}{{post.content|slice:":150"}}{% endblock %}
+{% block content %}
+<li class="post contentbox">
+  {% if comment_redirect %}
+  <h3 class="notification">
+      &nbsp;Thank you for your comment
+  </h3>
+  {% endif %}
+  <h2>
+    {{ post.title|safe }}
+  </h2>
+  <p>
+    {{ post.date }}
+  </p>
+  <p>
+    {{ post.content|safe|markdown }}
+  </p>
+  <hr class="end" />
+</li>
+<li class="contentbox">
+  <h2>
+    {% if all_comments %}
+    Comments:
+    {% else %}
+    No comments yet
+    {% endif %}
+  </h2>
+</li>
+{% if all_comments %}
+<li class="contentbox">
+  <ul id="comments">
+    {% for comment in all_comments %}
+    <li>
+      <h4>On {{comment.date}}...</h4>
+      <p> {{ comment.content }} </p>
+    </li>
+    {% endfor %}
+  </ul>
+</li>
+{% endif %}
+<li class="contentbox">
+  <hr class="end" />
+</li>
+<li class="contentbox" id="comment-form">
+  <h2>
+       Add a Comment:
+  </h2>
+  <p>
+    <i>
+      Comments will be reviewed before posting.
+      Email addresses are not published.
+    </i>
+  </p>
+  <a name="comment"></a>
+  <form method="post" action="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/comment/">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" />
+  </form>
+</li>
+{% endblock %}
+
+

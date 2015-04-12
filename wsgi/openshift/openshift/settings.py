@@ -152,15 +152,15 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'south',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'django.contrib.markup',
-    'blogs',
-    'measurement',
+    'openshift.blogs',
+    'openshift.measurement',
+    'markup_deprecated'
 )
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -194,6 +194,7 @@ BLOG_CONFIGURATION = {
         'username': 'garethpdx',
         'widget_id': '534554833978531840'},
     'analytics': {
-        'id': 'UA-38614627-4',
+        #'id': 'UA-38614627-4',
+        'id': '',
         'domain': 'baselin.es'}
 }

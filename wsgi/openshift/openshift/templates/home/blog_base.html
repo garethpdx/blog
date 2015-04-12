@@ -1,0 +1,79 @@
+{% load markup %}
+{% load staticfiles %}
+<html>
+<head>
+
+<link type="text/css" rel="stylesheet" href="{% static "css\baselines.css" %}" />
+<style>
+ .footer {width:100%; background-color: #FFF9E7; clear:both}
+ .footer p {line-height: 30px; margin: 10px}
+ .footer p a {color: #E85F0C }
+</style>
+<title>{% block title %}
+{{ blog_config.site.name }}{% endblock %}
+</title>
+<meta name="description" content="{% block metacontent %}{{ blog_config.site.description }}{% endblock %}">
+</head>
+<body>
+<h1>
+	<a href="/">{{ blog_config.site.name }}</a>
+</h1>
+<div class="left wide">
+  <ul>
+    {% block content %}
+    {% for post in latest_blog_posts %}
+    {% ifequal post.hidden 0 %}
+    <li class="post">
+      <h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
+      <span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
+      <p class="content">
+	{{ post.content|safe|markdown }}
+      </p>
+      <p>
+	<i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
+	    Comment
+	</a></i>
+      </p>
+      <hr class="end" />
+    </li>
+    {% endifequal %}
+    {% endfor %}
+    {% endblock %}
+  </ul>
+</div>
+<div class="left" id="archives">
+  <h3>Archives</h3>
+  <ul>
+    {% for nav_post in latest_blog_posts %}
+    {% if nav_post.hidden == 0 and post != nav_post %}
+    <li>
+      <a href="/{{ nav_post.date|date:"Y" }}/{{ nav_post.date|date:"m" }}/{{ nav_post.blob }}/">
+	{{ nav_post.title|safe }}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% for nav_post in older_blog_posts %}
+    {% ifequal nav_post.hidden 0 %}
+    <li>
+      <a href="/{{ nav_post.date|date:"Y" }}/{{ nav_post.date|date:"m" }}/{{ nav_post.blob }}/"> {{ nav_post.title|safe }}</a>
+    </li>
+    {% endifequal %}
+    {% endfor %}
+  </ul>
+  
+  <h3>
+    Recent Tweets
+  </h3>
+  <a class="twitter-timeline"  href="https://twitter.com/{{ blog_config.twitter.username }}" data-widget-id="{{ blog_config.twitter.widget_id}}" data-chrome="noheader">Tweets by @{{ blog_config.twitter.username }}</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  </script>        
+</div>
+<div class="footer">
+<p>
+  Made with <a href="http://djangoproject.com">Django</a>, hosted on <a href='http://Openshift.com'>Openshift</a>, and available on <a href="http://github.com/garethpdx/blog/">Github</a>.
+</p>
+</div>
+{% include "home/analytics.html" %}
+</body>
+</html>

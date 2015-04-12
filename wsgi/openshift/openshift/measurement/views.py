@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from measurement.models import MeasurementForm, User, Measurement, Category
+from models import MeasurementForm, User, Measurement, Category
 
 def measure(request, username):
     if request.method == 'POST':

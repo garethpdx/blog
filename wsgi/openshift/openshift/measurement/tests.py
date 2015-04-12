@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 
 from django.core.urlresolvers import resolve
 
-from openshift.measurement.views import measure
-from openshift.measurement.models import Category
+from views import measure
+from models import Category
+
 
 class TestMeasurementUserRouting(TestCase):
     TEST_USERNAME = 'tess'
     TEST_PASSWORD = 'tuser'
+
     def test_measurement_routing_for_new_user(self):
         found = resolve('/measurement/{0}/'.format(self.TEST_USERNAME))
         self.assertEqual(found.func, measure)
@@ -31,6 +33,6 @@ class TestMeasurementCategoryCreation(TestCase):
         self.create_category()
 
     def create_category(self):
-         c = Category(name='test', hidden=False)
-         c.save()
+        c = Category(name='test', hidden=False)
+        c.save()
     

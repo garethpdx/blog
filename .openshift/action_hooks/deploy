@@ -11,40 +11,11 @@ then
     echo "Copying $OPENSHIFT_REPO_DIR/wsgi/openshift/sqlite3.db to $OPENSHIFT_DATA_DIR"
     cp "$OPENSHIFT_REPO_DIR"wsgi/openshift/sqlite3.db $OPENSHIFT_DATA_DIR
     python "$OPENSHIFT_REPO_DIR".openshift/action_hooks/secure_db.py | tee ${OPENSHIFT_DATA_DIR}/CREDENTIALS
-else
-    echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py syncdb --noinput'"
-    python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --noinput
 fi
 
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectstatic --noinput'"
 python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
 
-# Beginning of migration, from https://www.openshift.com/forums/openshift/django-with-south-on-openshift
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py migrate"
 
-# This code assumes that migration files are present 
-# in a migrations folder in the data directory
-
-# First, copy migration data from the persistent storage to the codebase directory
-# cp -r source destination -> recursively copy files from source to destination
-echo "copying migrations to  app-root storage"
-# (LIES!) echo "mv "$OPENSHIFT_REPO_DIR"wsgi/openshift/blogs/migrations $OPENSHIFT_DATA_DIR"
-cp -r "${OPENSHIFT_DATA_DIR}migrations" ${OPENSHIFT_REPO_DIR}wsgi/openshift/blogs
-cp -r "${OPENSHIFT_DATA_DIR}migrations" ${OPENSHIFT_REPO_DIR}wsgi/openshift/measurement
- 
-# Second, create a migration inside the codebase
-# echo "generating migration files 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py schemamigration blogs --auto'"
-python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py schemamigration blogs --auto
-
-# echo "generating migration files 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py schemamigration measurement --auto'"
-python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py schemamigration measurement --auto
-
-# Third, perform the migration created in step 2
-echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py migrate blogs'"
-python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py migrate blogs
-echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py migrate measurement'"
-python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py migrate measurement
- 
-# Finally, copy the new migration file to persistent storage
-echo "saving migrations to persistent storage"
-echo "cp -r "$OPENSHIFT_REPO_DIR"wsgi/openshift/blogs/migrations $OPENSHIFT_DATA_DIR"
-cp -r "${OPENSHIFT_REPO_DIR}wsgi/openshift/blogs/migrations" ${OPENSHIFT_DATA_DIR}
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py migrate

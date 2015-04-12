@@ -1,0 +1,26 @@
+{% extends "home/blog_base.html" %}
+
+{% load markup %}
+{% load staticfiles %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block content %}
+{% for post in latest_blog_posts %}
+{% ifequal post.hidden 0 %}
+<li class="post">
+  <h2><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/"> {{ post.title|safe }}</a></h2>
+  <span class="date">{{ post.date|date:"SHORT_DATE_FORMAT" }}</span>	
+  <p class="content">
+    {{ post.content|safe|markdown }}
+  </p>
+  <p>
+    <i><a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"n" }}/{{ post.blob }}/#comment">
+	Comment
+    </a></i>
+  </p>
+  <hr class="end" />
+</li>
+{% endifequal %}
+{% endfor %}
+{% endblock %}

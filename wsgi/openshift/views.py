@@ -1,7 +1,7 @@
 from django.template import Context, loader
 from django.http import HttpResponse
 
-from blogs.models import Post
+from openshift.blogs.models import Post
 from django.conf import settings
 
 def go404(request):

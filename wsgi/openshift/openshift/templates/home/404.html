@@ -1,0 +1,48 @@
+{% load markup %}
+{% load staticfiles %}
+<html>
+<head>
+<title>{{ blog_config.site.name }}</title>
+<link href="{% static "css\baselines.css" %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>
+	<a href="/blog/">{{ blog_config.site.name }}</a>
+</h1>
+{% if latest_blog_posts %}
+
+<div class="left wide">
+	<ul>
+		<li class="contentbox">
+			<h2>That's a 404</h2>
+		</li>
+		<li class="contentbox">
+			<p>The page cannot be found. Maybe you were looking for one of these?</p>
+		</li>
+		<li class="contentbox">
+			<ul>
+				{% for post in latest_blog_posts %}
+					{% ifequal post.hidden 0 %}
+					<li>
+					
+						<a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/">
+							{{ post.title|safe }}
+						</a>
+					</li>
+					{% endifequal %}
+				{% endfor %}
+				{% for post in older_blog_posts %}
+					{% ifequal post.hidden 0 %}
+						<li>
+						<a href="/{{ post.date|date:"Y" }}/{{ post.date|date:"m" }}/{{ post.blob }}/">{{ post.title|safe }}</a>
+						</li>
+					{% endifequal %}
+				{% endfor %}
+			</ul>
+		</li>
+	</ul>
+</div>
+{% endif %}
+{% include "home/analytics.html" %}
+</body>
+</html>

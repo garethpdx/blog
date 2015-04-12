@@ -7,8 +7,9 @@ from django.http import HttpRequest
 from openshift.views import go404
 from openshift.views import index
 
-from openshift.blogs.models import Post
+from models import Post
 from django.test.utils import override_settings
+
 
 class SuccessfulRoutingTest(TestCase):
     def setUp(self):
