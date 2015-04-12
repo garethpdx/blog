@@ -2,7 +2,8 @@
 
 from setuptools import setup
 
-packages = ['Django==1.7', 'BeautifulSoup4', 'south', 'markdown']
+packages = ['Django==1.7', 'BeautifulSoup4', 'south', 'markdown',
+            'django-markup-deprecated']
 
 setup(
     name='blog',
