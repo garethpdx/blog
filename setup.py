@@ -7,7 +7,7 @@ packages = ['Django==1.7', 'BeautifulSoup4', 'south', 'markdown',
 
 setup(
     name='blog',
-    version='0.2',
+    version='0.3',
     description='Simple blog built with Django, hosted on Openshift',
     author='Gareth M',
     install_requires=packages,
