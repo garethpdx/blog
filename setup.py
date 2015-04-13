@@ -2,12 +2,12 @@
 
 from setuptools import setup
 
-packages = ['Django==1.7', 'BeautifulSoup4', 'south', 'markdown',
+packages = ['Django==1.7', 'BeautifulSoup4', 'markdown',
             'django-markup-deprecated']
 
 setup(
     name='blog',
-    version='0.3',
+    version='0.3.3',
     description='Simple blog built with Django, hosted on Openshift',
     author='Gareth M',
     install_requires=packages,
