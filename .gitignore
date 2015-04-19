@@ -14,3 +14,5 @@ build/*
 dist/*
 venv/*
 auth.txt
+
+settings.py
